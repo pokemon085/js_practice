@@ -10,6 +10,7 @@
     <button id="iframeClick">click and download from hide iframe</button>
     <!-- <div id="iframeHolder"> </div> -->
     <iframe id="iframe-wrap" style="width: 0; height: 0; border: 0; border: none; position: absolute;"></iframe>
+    <iframe id="iframe-wrap2" style="width: 0; height: 0; border: 0; border: none; position: absolute;"></iframe>
 
     <button id="async-click">click and double download</button>
 </head>
@@ -17,12 +18,16 @@
     <script>
         document.getElementById("iframeClick").addEventListener("click", function(){
 
-            window.location.href="https://www.7-zip.org/a/7z1900.exe";
 
-            let iframe =document.getElementById("iframe-wrap")
+            let iframe =document.getElementById("iframe-wrap");
             iframe.src="https://www.7-zip.org/a/7z1900-x64.exe";  
-                
             document.body.appendChild(iframe);
+            console.log('11')
+
+            let iframe2 =document.getElementById("iframe-wrap2")
+            iframe2.src="https://www.7-zip.org/a/7z1900.exe";      
+            document.body.appendChild(iframe2);
+            console.log('22')
         });
 
         document.getElementById("async-click").addEventListener("click",function(){
@@ -48,28 +53,12 @@
             });
             
         });
-
-
-        
-
-       
-
         function link1(){
             window.location.href="https://www.7-zip.org/a/7z1900.exe";
         }
         function link2(){
             window.location.href="https://www.7-zip.org/a/7z1900-x64.exe";
         }
-
-    
-
-        
-        
-
-
-     
-
-
     </script>
 </body>
 </html>
