@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,24 +14,32 @@
     <iframe id="iframe-wrap2" style="width: 0; height: 0; border: 0; border: none; position: absolute;"></iframe>
 
     <button id="async-click">click and double download</button>
+    <button id="yourlink">Download</button>
+    <!-- <a href="#" id="yourlink">Download</a> -->
+
 </head>
+
 <body>
     <script>
-        document.getElementById("iframeClick").addEventListener("click", function(){
+         document.getElementById("yourlink").addEventListener("click", function (e) {
+            e.preventDefault();
+            window.open('https://www.7-zip.org/a/7z1900-x64.exe');
+            window.open('https://www.7-zip.org/a/7z1900.exe');
+        });
 
-
-            let iframe =document.getElementById("iframe-wrap");
-            iframe.src="https://www.7-zip.org/a/7z1900-x64.exe";  
+        document.getElementById("iframeClick").addEventListener("click", function () {
+            let iframe = document.getElementById("iframe-wrap");
+            iframe.src = "https://www.7-zip.org/a/7z1900-x64.exe";
             document.body.appendChild(iframe);
             console.log('11')
 
-            let iframe2 =document.getElementById("iframe-wrap2")
-            iframe2.src="https://www.7-zip.org/a/7z1900.exe";      
+            let iframe2 = document.getElementById("iframe-wrap2")
+            iframe2.src = "https://www.7-zip.org/a/7z1900.exe";
             document.body.appendChild(iframe2);
             console.log('22')
         });
 
-        document.getElementById("async-click").addEventListener("click",function(){
+        document.getElementById("async-click").addEventListener("click", function () {
             const myPromise = new Promise((resolve, reject) => {
                 console.log('In new Promise, start callback'); // 立即執行
                 link1()
@@ -51,14 +60,17 @@
                 // 在 myPromise 被 reject 時執行
                 console.log('error', error);
             });
-            
+
         });
-        function link1(){
-            window.location.href="https://www.7-zip.org/a/7z1900.exe";
+
+        function link1() {
+            window.location.href = "https://www.7-zip.org/a/7z1900.exe";
         }
-        function link2(){
-            window.location.href="https://www.7-zip.org/a/7z1900-x64.exe";
+
+        function link2() {
+            window.location.href = "https://www.7-zip.org/a/7z1900-x64.exe";
         }
     </script>
 </body>
+
 </html>
