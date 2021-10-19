@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+       ----- list 渲染 ----
+        <ul>
+            array
+            <li>(data---index){{datalist}}</li>
+            <li v-for="(data,index) in datalist">
+               {{data}}---{{index}}
+            </li>
+        </ul>
+        <ul>
+            array
+            <li>(data---index){{datalist}}</li>
+            <li v-for="(data,index) of datalist">
+               {{data}}---{{index}}
+            </li>
+        </ul>
+        <!--v-for in 跟 of 的效果一樣 -->
+        <ul>
+            object
+            <li>(data---index){{obj}}</li>
+            <li v-for="(data,key) in obj">
+               {{data}}--{{key}}
+            </li>
+        </ul>
+
+        <ul>
+            object in array
+            <li>(data---index){{obj1}}</li>
+            <li v-for="(data,key) in obj1">
+               {{data}}---{{key}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                datalist:["111","222","333"],
+                obj:{name:"aaa",age:10,location:"bbb"},
+                obj1:[{name:"aaa",age:10,location:"bbb"},{name:"CCC",age:10,location:"DDD"},]
+                
+            }
+        })
+        let concat=vm.datalist.concat(["555","666"]) //在datalist後面再加上555,666=> datalist:["111","222","333","555","666"]
+        let splice=vm.datalist.splice(0,1,"kerwin") //這個意思是把datalist 刪除第0個 刪除1個 改成kerwin [ "kerwin", "222", "333" ]
+        let vueSet=Vue.set(vm.datalist,2,"kkkk"); //datalist裡面第0個改成kkkk [ "kerwin", "222", "kkkk" ]
+        Vue.set(vm.obj,"hhh","33") //{ "name": "aaa", "age": 10, "location": "bbb", "kkk": "33" }(object)
+        console.log('splice'+splice)
+    </script>
+  
+</body>
+</html>
