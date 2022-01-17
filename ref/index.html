@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- ref attribute -->
+        <child-component ref="child1"></child-component>
+        <child-component ref="child2"></child-component>
+        <button @click="show">alert child-component count</button>
+    </div>
+    <script>
+        // 子元件
+        Vue.component('child-component', {
+            data: function () {
+                return {
+                    count: 20
+                };
+            },
+            methods: {
+                getOne: function () {
+                    this.count++;
+                }
+            },
+            template: '<button @click="getOne">{{ count }}</button>'
+        });
+
+        // 父元件
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                show: function () {
+                    // 透過 $refs 取得子元件的 count 
+                    console.log(this.$refs.child1.count);//20
+                    console.log(this.$refs.child2.count);//21
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
