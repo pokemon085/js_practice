@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +8,33 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
+
 <body>
     <div id="box">
-
+        <input type="text" v-model="keyWord" @input="search" />
+        <!-- @chang事件 失去焦點會觸發一次/ @input每次資料改變就會觸發 -->
+        <ul>
+            <li v-for="data in changeList">
+                {{data}}
+            </li>
+        </ul>
     </div>
     <script>
-        var vm=new Vue({
-            el:"#box",
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                changeList: ['aaa', 'bbb', 'ccc', 'ddd','aee'],
+                datalist: ['aaa', 'bbb', 'ccc', 'ddd','aee'],
+                keyWord: ''
+            },
+            methods: {
+                search() {
+                    var newlist = this.datalist.filter(item => item.indexOf(this.keyWord) > -1)
+                    this.changeList = newlist
+                }
+            }
         })
     </script>
 </body>
+
 </html>
