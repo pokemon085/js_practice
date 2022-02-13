@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="handleClick">click1</button>
+        <button @click="handleClick($event)">click2</button>
+        <button>click3</button>
+        <div v-show="isShow">111111</div>
+
+        <ul @click.self="handleULClick()">
+            <li @click.stop="handleLiClick($event)">11111</li>
+            <!-- @click.stop vue阻止冒泡事件修飾符 -->
+            <li @click="handleLiClick()">222</li>
+            <li @click.once="handleLiClick()">333</li>
+        </ul>
+
+        <a href="https://www.google.com" @click.prevent="handleChangePage">google link</a>
+        <!-- @click.prevent vue阻止默認行為 -->
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                isShow: false
+            },
+            methods: {
+                handleClick(ev) {
+                    console.log(ev.target); //ev就是事件對象
+                    this.isShow = !this.isShow
+                },
+                handleULClick() {
+                    console.log("ul click")
+                },
+                handleLiClick(ev) {
+                    // ev.stopPropagation(); //原生阻止冒泡
+                    console.log("li click", ev)
+                },
+                handleChangePage(ev) {
+                    //跳頁前先跑這裡 阻止href直接跳頁
+                    console.log("handleChangePage")
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>
