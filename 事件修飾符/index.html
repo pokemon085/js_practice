@@ -25,6 +25,10 @@
 
         <a href="https://www.google.com" @click.prevent="handleChangePage">google link</a>
         <!-- @click.prevent vue阻止默認行為 -->
+
+        <input type="text" @keyup.enter="handleKeyup($event)" />
+        <!-- @keyup.enter ===  @keyup.13 鍵盤鍵值-->
+
     </div>
     <script>
         var vm = new Vue({
@@ -47,6 +51,9 @@
                 handleChangePage(ev) {
                     //跳頁前先跑這裡 阻止href直接跳頁
                     console.log("handleChangePage")
+                },
+                handleKeyup() {
+                    console.log('AAA')
                 }
 
             }
