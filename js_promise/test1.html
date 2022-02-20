@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>promise test1</h2>
+        <button id="btn">點擊抽獎</button>
+    </div>
+    <!--source=> https://www.youtube.com/watch?v=c4zf0QaYhwM&list=PLmOn9nNkQxJF-I5BK-wNUnsBkuLXUumhr&index=3 -->
+    <!-- 點擊按鈕 ,1s後顯示是否中獎(30%機率中獎)(隨機的數字小於等於30) -->
+    <script>
+        function rand(m, n) {
+            return Math.ceil(Math.random() * (n - m + 1) + m - 1);
+        }
+        const btn = document.querySelector('#btn');
+        btn.addEventListener('click', function () {
+
+            // setTimeout(()=>{
+            //     let n=rand(1,100);
+            //     console.log(n)
+            //     if(n<=30){
+            //         alert('中獎')
+            //     }else{
+            //         alert('再接再厲')
+            //     }
+            // },1000)
+
+            //------以Promise形式實現---------
+            //reslove 解決 函數類型的數據
+            //reject 拒絕 函數類型的數據
+            const p = new Promise((reslove, reject) => {
+                setTimeout(() => {
+                    let n = rand(1, 100);
+                    console.log(n);
+                    if (n <= 30) {
+                        reslove(n); //將promise對象的狀態設置為成功
+                    } else {
+                        reject(n); //將promise對象的狀態設置為失敗
+                    }
+                }, 1000)
+            })
+
+            //調用then方法
+            p.then((value)=>{
+                //reslove結果
+                alert('中獎數字'+value);
+            },(reason)=>{
+                //reject結果 
+                alert('再接再厲'+reason);  
+            })
+
+        })
+    </script>
+</body>
+
+</html>
