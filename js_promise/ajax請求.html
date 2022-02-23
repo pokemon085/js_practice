@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="page-header">promise 封裝ajax</h2>
+        <button id="btn">click send ajax</button>
+    </div>
+    <script>
+        // https://api.apiopen.top/getJoke
+        const btn = document.querySelector('#btn');
+        btn.addEventListener('click', () => {
+
+            const p = new Promise((resolve, reject) => {
+                //1.創建對象
+                const xhr = new XMLHttpRequest();
+                //2.初始化
+                xhr.open('GET', 'https://api.apiopen.top/getJoke');
+                //3.發送
+                xhr.send();
+                //4.處理響應結果
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        //狀態碼 2xx
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            resolve(xhr.response);
+                        } else {
+                            //測試失敗 將api連結故意打錯
+                            reject(xhr.status);
+                        }
+                    }
+                }
+            });
+
+            p.then(value => {
+                console.log(value);
+            }, reason => {
+                console.log(reason);
+            })
+
+        })
+    </script>
+</body>
+
+</html>
