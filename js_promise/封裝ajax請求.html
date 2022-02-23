@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 封裝一個參數 sendAJAX 發送 GET AJAX 請求
+    參數 URL
+    返回結果 Promise對象 -->
+    <script>
+        function sendAJAX(url) {
+            return new Promise((reslove, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.responseType='json'; //設定為JSON格式
+                xhr.open("GET", url);
+                xhr.send();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            reslove(xhr.response)
+                        } else {
+                            reject(xhr.status)
+                        }
+                    }
+                }
+            })
+        }
+
+        sendAJAX('https://api.apiopen.top/getJoke')
+            .then(value => {
+                console.log(value)
+            }, reason => {
+                console.warn(reason)
+            })
+    </script>
+
+</body>
+
+</html>
