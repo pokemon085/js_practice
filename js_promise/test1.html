@@ -47,6 +47,20 @@
                 }, 1000)
             })
 
+            console.log(p);
+            
+            /*
+            p印出來的是Promise的狀態
+            1.[PromiseState]
+                * pending 未決定的
+                * resolved/fullfilled 成功
+                * rejected 失敗
+            2.[PromiseResult]
+                保存異步任務resolved/reject的結果
+                如果有[[PromiseResult]]的結果會被當作參數傳入回呼函式
+            */
+
+
             //調用then方法
             p.then((value)=>{
                 //reslove結果
