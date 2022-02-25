@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p1=new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve('ok')
+            },1000)
+        })
+        let p2=Promise.resolve('success');
+        let p3=Promise.resolve('yes')
+
+        //promise.race 哪一個先跑完 結果就是那一個
+        const result=Promise.race([p1,p2,p3]);
+        console.log(result);
+
+        /*
+        第一個延遲1s 第二個先跑完 所以印success
+        Promise {<pending>}
+        [[Prototype]]: Promise
+        [[PromiseState]]: "fulfilled"
+        [[PromiseResult]]: "success"
+        */
+    </script>
+</body>
+</html>
