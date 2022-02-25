@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p1=new Promise((reslove,reject)=>{
+            //reslove('ok')
+            reject('error')
+        })
+        let p2=Promise.resolve('success');
+        let p3=Promise.resolve('yes');
+        const result=Promise.all([p1,p2,p3]);
+        console.log(result)
+        /*
+        Promise
+        成功
+            [[Prototype]]: Promise
+            [[PromiseState]]: "fulfilled"
+            [[PromiseResult]]: Array(3)
+            0: "ok"
+            1: "success"
+            2: "yes"
+            length: 3
+            [[Prototype]]: Array(0)
+
+        失敗
+            [[Prototype]]: Promise
+            [[PromiseState]]: "rejected"
+            [[PromiseResult]]: "error"
+        */
+    </script>
+</body>
+</html>
