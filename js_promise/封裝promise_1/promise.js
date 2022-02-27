@@ -41,5 +41,11 @@ function Promise(executor){
 
 //添加then方法 因為沒有then方法 直接呼叫會報錯(p.then is not a function)
 Promise.prototype.then=function(onResolved,onReject){
+    if (this.PromiseState ==='fulfilled'){
+        onResolved(this.PromiseResult);
+    }
+    if (this.PromiseState ==='reject'){
+        onReject(this.PromiseResult);
+    }
 
 }
