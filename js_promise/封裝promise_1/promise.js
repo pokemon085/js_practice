@@ -8,6 +8,9 @@ function Promise(executor){
     const self=this;
     //resolve
     function resolve(data){
+        //確保狀態只能更改一次
+        if (self.PromiseState !== 'pending') return;
+
         //1.修改對象的狀態(promiseState)
         self.PromiseState='fulfilled';
 
@@ -16,6 +19,9 @@ function Promise(executor){
     }
     //reject
     function reject(data){
+        //確保狀態只能更改一次
+        if (self.PromiseState !== 'pending') return;
+        
         //1.修改對象的狀態(promiseState)
         self.PromiseState='reject';
 
@@ -23,8 +29,14 @@ function Promise(executor){
         self.PromiseResult=data;
 
     }
-
-    executor(resolve,reject);
+    try{
+        //同步調用
+        executor(resolve,reject);
+    }catch(e){
+        //修改promise 對象狀態為失敗
+        reject(e);
+    }
+    
 }
 
 //添加then方法 因為沒有then方法 直接呼叫會報錯(p.then is not a function)
