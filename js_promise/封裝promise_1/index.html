@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,38 +8,53 @@
     <title>Document</title>
     <script src="./promise.js"></script>
 </head>
+
 <body>
     <script>
-        let p=new Promise((resolve,reject)=>{
-           // reject('ee');
-          // resolve('ok');
-           
-           //抛出異常
-          // throw "error";
+        let p = new Promise((resolve, reject) => {
+            // reject('ee');
+             resolve('ok');
 
-          //異步狀態會跑到pending狀態 執行狀態再進行回調
-          setTimeout(()=>{
-             resolve('ok')
-             //reject('ee');
-          },1000)
+            //抛出異常
+            // throw "error";
+
+            //異步狀態會跑到pending狀態 執行狀態再進行回調
+            //setTimeout(() => {
+               // resolve('ok')
+                //reject('ee');
+           // }, 1000)
         })
-      // console.log(p)
+        // console.log(p)
 
-        p.then(value=>{
+        // p.then(value=>{
+        //     console.log(value);
+        // },reason=>{
+        //     console.warn(reason);
+        // })
+
+
+
+        // p.then(value=>{
+        //     alert(value);
+        // },reason=>{
+        //     alert(reason);
+        // })
+
+        const res = p.then(value => {
             console.log(value);
-        },reason=>{
+            // return 'hello';
+            // return new Promise((resolve, reject) => {
+            //     //resolve('success');
+            //     reject('no')
+            // })
+            //拋出異常 就要用try catch
+            throw 'eee'
+        }, reason => {
             console.warn(reason);
         })
 
-     
-
-        p.then(value=>{
-            alert(value);
-        },reason=>{
-            alert(reason);
-        })
-
-        console.log(p)
+        console.log(res)
     </script>
 </body>
+
 </html>

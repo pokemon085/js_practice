@@ -55,20 +55,44 @@ function Promise(executor) {
 
 //添加then方法 因為沒有then方法 直接呼叫會報錯(p.then is not a function)
 Promise.prototype.then = function (onResolved, onReject) {
-    if (this.PromiseState === 'fulfilled') {
-        onResolved(this.PromiseResult);
-    }
-    if (this.PromiseState === 'reject') {
-        onReject(this.PromiseResult);
-    }
 
-    //判斷pending狀態
-    if (this.PromiseState === 'pending') {
-        //保存回調函數
-        this.callbacks.push({
-            onResolved: onResolved,
-            onReject: onReject
-        })
-    }
+    return new Promise((resolve, reject) => {
+        if (this.PromiseState === 'fulfilled') {
+            try {
+                //獲取回調函數的執行結果
+                let result = onResolved(this.PromiseResult);
+                //判斷是否為Promise類型的對象
+                if (result instanceof Promise) {
+                    result.then(v => {
+                        resolve(v);
+                    }, r => {
+                        reject(r);
+                    })
+
+                } else {
+                    //結果的對象狀態為成功
+                    resolve(result);
+                }
+            } catch (e) {
+                reject(e);
+            }
+
+
+        }
+        if (this.PromiseState === 'reject') {
+            onReject(this.PromiseResult);
+        }
+
+        //判斷pending狀態
+        if (this.PromiseState === 'pending') {
+            //保存回調函數
+            this.callbacks.push({
+                onResolved: onResolved,
+                onReject: onReject
+            })
+        }
+    })
+
+
 
 }
