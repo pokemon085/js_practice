@@ -5,7 +5,7 @@ function Promise(executor) {
     this.PromiseResult = null;
 
     //聲明屬性
-    this.callback = {};
+    this.callbacks = [];
 
     //保存實例對象的this的值
     const self = this;
@@ -20,10 +20,11 @@ function Promise(executor) {
         //2.設置對象結果值(promiseResult)
         self.PromiseResult = data;
 
-        //調用成功的回調函數
-        if(self.callback.onResolved){
-            self.callback.onResolved(data);
-        }
+        //調用成功的回調函數(用foreach是因為會有多個then的時候)
+        self.callbacks.forEach(item => {
+            item.onResolved(data);
+        });
+
     }
     //reject
     function reject(data) {
@@ -37,9 +38,9 @@ function Promise(executor) {
         self.PromiseResult = data;
 
         //調用失敗的回調函數
-        if(self.callback.onReject){
-            self.callback.onReject(data);
-        }
+        self.callbacks.forEach(item => {
+            item.onReject(data);
+        });
 
     }
     try {
@@ -64,10 +65,10 @@ Promise.prototype.then = function (onResolved, onReject) {
     //判斷pending狀態
     if (this.PromiseState === 'pending') {
         //保存回調函數
-        this.callback = {
+        this.callbacks.push({
             onResolved: onResolved,
             onReject: onReject
-        }
+        })
     }
 
 }
