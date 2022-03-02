@@ -56,6 +56,7 @@ function Promise(executor) {
 //添加then方法 因為沒有then方法 直接呼叫會報錯(p.then is not a function)
 Promise.prototype.then = function (onResolved, onReject) {
 
+    const self = this;
     return new Promise((resolve, reject) => {
         if (this.PromiseState === 'fulfilled') {
             try {
@@ -87,8 +88,43 @@ Promise.prototype.then = function (onResolved, onReject) {
         if (this.PromiseState === 'pending') {
             //保存回調函數
             this.callbacks.push({
-                onResolved: onResolved,
-                onReject: onReject
+                onResolved: function () {
+                    try { //加上try catch就是怕會有throw
+                        //執行成功地回調函數
+                        let result = onResolved(self.PromiseResult);
+
+                        //為了改變狀態才寫
+                        if (result instanceof Promise) {
+                            result.then(v => {
+                                resolve(v);
+                            }, r => {
+                                reject(r);
+                            })
+                        } else {
+                            resolve(result);
+                        }
+                    } catch (e) {
+                        reject(e)
+                    }
+
+                },
+                onReject: function () {
+                    try {
+                        let result = onReject(self.PromiseResult);
+                        if (result instanceof Promise) {
+                            result.then(v => {
+                                resolve(v);
+                            }, r => {
+                                reject(r);
+                            })
+                        } else {
+                            resolve(result);
+                        }
+                    } catch (e) {
+                        reject(e)
+                    }
+
+                }
             })
         }
     })
