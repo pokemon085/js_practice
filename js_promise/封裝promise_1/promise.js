@@ -58,10 +58,12 @@ Promise.prototype.then = function (onResolved, onReject) {
 
     const self = this;
     return new Promise((resolve, reject) => {
-        if (this.PromiseState === 'fulfilled') {
+
+        //封裝函數
+        function callback(type) {
             try {
                 //獲取回調函數的執行結果
-                let result = onResolved(this.PromiseResult);
+                let result = type(self.PromiseResult);
                 //判斷是否為Promise類型的對象
                 if (result instanceof Promise) {
                     result.then(v => {
@@ -78,10 +80,12 @@ Promise.prototype.then = function (onResolved, onReject) {
                 reject(e);
             }
 
-
+        }
+        if (this.PromiseState === 'fulfilled') {
+            callback(onResolved);
         }
         if (this.PromiseState === 'reject') {
-            onReject(this.PromiseResult);
+            callback(onReject);
         }
 
         //判斷pending狀態
@@ -89,41 +93,10 @@ Promise.prototype.then = function (onResolved, onReject) {
             //保存回調函數
             this.callbacks.push({
                 onResolved: function () {
-                    try { //加上try catch就是怕會有throw
-                        //執行成功地回調函數
-                        let result = onResolved(self.PromiseResult);
-
-                        //為了改變狀態才寫
-                        if (result instanceof Promise) {
-                            result.then(v => {
-                                resolve(v);
-                            }, r => {
-                                reject(r);
-                            })
-                        } else {
-                            resolve(result);
-                        }
-                    } catch (e) {
-                        reject(e)
-                    }
-
+                    callback(onResolved);
                 },
                 onReject: function () {
-                    try {
-                        let result = onReject(self.PromiseResult);
-                        if (result instanceof Promise) {
-                            result.then(v => {
-                                resolve(v);
-                            }, r => {
-                                reject(r);
-                            })
-                        } else {
-                            resolve(result);
-                        }
-                    } catch (e) {
-                        reject(e)
-                    }
-
+                    callback(onReject);
                 }
             })
         }

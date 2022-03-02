@@ -13,16 +13,16 @@
     <script>
         let p = new Promise((resolve, reject) => {
             // reject('ee');
-            // resolve('ok');
+             resolve('ok');
 
             //抛出異常
             // throw "error";
 
             //異步狀態會跑到pending狀態 執行狀態再進行回調
-            setTimeout(() => {
-               resolve('ok')
-                //reject('ee');
-           }, 1000)
+        //     setTimeout(() => {
+        //        resolve('ok')
+        //         //reject('ee');
+        //    }, 1000)
         })
         // console.log(p)
 
