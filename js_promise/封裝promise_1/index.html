@@ -11,19 +11,39 @@
 
 <body>
     <script>
-        let p = new Promise((resolve, reject) => {
-            // reject('ee');
-            // resolve('ok');
+        const p=Promise.resolve('ok');
+        console.log(p)
 
-            //抛出異常
-            // throw "error";
+        const p2=Promise.resolve(new Promise((resolve,reject)=>{
+            //resolve('success');
+            reject('error')
+        }))
+        console.log(p2)
 
-            //異步狀態會跑到pending狀態 執行狀態再進行回調
-            setTimeout(() => {
-              resolve('ok')
-                // reject('ee');
-           }, 1000)
-        })
+        const p3=Promise.resolve(Promise.resolve('aaa'));
+        console.log(p3)
+
+
+        const p4=Promise.reject('errorp4');
+        console.log(p4);
+
+        const p5=Promise.reject(new Promise((resolve,reject)=>{
+            resolve('eee5')
+        }))
+        console.log(p5);
+        // let p = new Promise((resolve, reject) => {
+        //     // reject('ee');
+        //     // resolve('ok');
+
+        //     //抛出異常
+        //     // throw "error";
+
+        //     //異步狀態會跑到pending狀態 執行狀態再進行回調
+        //     setTimeout(() => {
+        //       resolve('ok')
+        //         // reject('ee');
+        //    }, 1000)
+        // })
         // console.log(p)
 
         // p.then(value=>{
@@ -62,17 +82,17 @@
 
         //setTimeout的關係在第二個就會失敗
         //p.then()值傳遞 如果沒傳值
-        p.then()
-        .then(value=>{
-            console.log(111);
-            //throw 'error'
-        }).then(value=>{
-            console.log(222);
-        }).then(value=>{
-            console.log(333);
-        }).catch(reason=>{
-            console.warn(reason);
-        })
+        // p.then()
+        // .then(value=>{
+        //     console.log(111);
+        //     //throw 'error'
+        // }).then(value=>{
+        //     console.log(222);
+        // }).then(value=>{
+        //     console.log(333);
+        // }).catch(reason=>{
+        //     console.warn(reason);
+        // })
     </script>
 </body>
 
