@@ -11,6 +11,21 @@
 
 <body>
     <script>
+        /*調用all方法
+         */
+        let p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('ok');
+            }, 1000)
+
+        })
+        let p4 = Promise.reject('error');
+        let p2 = Promise.resolve('success');
+        let p3 = Promise.resolve('dsfdsfd')
+        let result = Promise.all([p1, p2, p3,p4]);
+        console.log(result)
+        /* 
+        //Promise.resolve Promise.reject
         const p=Promise.resolve('ok');
         console.log(p)
 
@@ -31,6 +46,8 @@
             resolve('eee5')
         }))
         console.log(p5);
+        */
+
         // let p = new Promise((resolve, reject) => {
         //     // reject('ee');
         //     // resolve('ok');

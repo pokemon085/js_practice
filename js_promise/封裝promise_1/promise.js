@@ -124,16 +124,16 @@ Promise.prototype.catch = function (onReject) {
 }
 
 //添加resolve方法
-Promise.resolve=function(value){
+Promise.resolve = function (value) {
     //返回promise對象
-    return new Promise((resolve,reject)=>{
-        if(value instanceof Promise){
-            value.then(v=>{
+    return new Promise((resolve, reject) => {
+        if (value instanceof Promise) {
+            value.then(v => {
                 resolve(v);
-            },r=>{
+            }, r => {
                 reject(r);
             })
-        }else{
+        } else {
             //狀態設為成功
             resolve(value);
         }
@@ -141,10 +141,30 @@ Promise.resolve=function(value){
 }
 
 //添加reject方法
-Promise.reject=function(value){
-    
-    return new Promise((resolve,reject)=>{
+Promise.reject = function (value) {
+
+    return new Promise((resolve, reject) => {
         reject(value)
     })
-   
+
+}
+
+//添加all方法
+Promise.all = function (promises) {
+    //返回結果為promise對象
+    return new Promise((resolve, reject) => {
+        let count = 0;
+        let arr=[];
+        for (let i = 0; i < promises.length; i++) {
+            promises[i].then(v => {
+                arr[i]=v;
+                count++;
+                if (count === promises.length) {
+                    resolve(arr)
+                }
+            }, r => {
+                reject(r)
+            })
+        }
+    })
 }
