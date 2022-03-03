@@ -57,6 +57,17 @@ function Promise(executor) {
 Promise.prototype.then = function (onResolved, onReject) {
 
     const self = this;
+
+    //判斷回調函數參數
+    if (typeof onReject !== 'function') {
+        onReject = reason => {
+            throw reason;
+        }
+    }
+    //判斷沒傳值
+    if (typeof onResolved != 'function') {
+        onResolved = value => value; //value=>{return value}
+    }
     return new Promise((resolve, reject) => {
 
         //封裝函數
@@ -104,4 +115,10 @@ Promise.prototype.then = function (onResolved, onReject) {
 
 
 
+}
+
+//添加then方法
+Promise.prototype.catch = function (onReject) {
+    //直接調用上面的then方法
+    return this.then(undefined, onReject);
 }

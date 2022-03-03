@@ -13,16 +13,16 @@
     <script>
         let p = new Promise((resolve, reject) => {
             // reject('ee');
-             resolve('ok');
+            // resolve('ok');
 
             //抛出異常
             // throw "error";
 
             //異步狀態會跑到pending狀態 執行狀態再進行回調
-        //     setTimeout(() => {
-        //        resolve('ok')
-        //         //reject('ee');
-        //    }, 1000)
+            setTimeout(() => {
+              resolve('ok')
+                // reject('ee');
+           }, 1000)
         })
         // console.log(p)
 
@@ -40,22 +40,39 @@
         //     alert(reason);
         // })
 
-        const res = p.then(value => {
-            console.log(value);
-            // return 'hello';
-            // return new Promise((resolve, reject) => {
-            //     //resolve('success');
-            //     reject('no')
-            // })
-            //拋出異常 就要用try catch
-           // throw 'eee'
-        }, reason => {
+        // const res = p.then(value => {
+        //     console.log(value);
+        //     // return 'hello';
+        //     // return new Promise((resolve, reject) => {
+        //     //     //resolve('success');
+        //     //     reject('no')
+        //     // })
+        //     //拋出異常 就要用try catch
+        //    // throw 'eee'
+        // }, reason => {
+        //     console.warn(reason);
+
+        //    // throw 'eee'
+        // })
+
+        // let res=p.catch(reason=>{
+        //     console.warn(reason);
+        // })
+        // console.log(res)
+
+        //setTimeout的關係在第二個就會失敗
+        //p.then()值傳遞 如果沒傳值
+        p.then()
+        .then(value=>{
+            console.log(111);
+            //throw 'error'
+        }).then(value=>{
+            console.log(222);
+        }).then(value=>{
+            console.log(333);
+        }).catch(reason=>{
             console.warn(reason);
-
-           // throw 'eee'
         })
-
-        console.log(res)
     </script>
 </body>
 
