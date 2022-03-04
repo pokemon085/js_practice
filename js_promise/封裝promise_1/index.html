@@ -11,7 +11,20 @@
 
 <body>
     <script>
-        /* //調用race方法 */
+        /*異步執行*/
+        let p1=new Promise((resolve,reject)=>{
+            //resolve('ok');
+            reject('error')
+            console.log(111);
+        });
+        p1.then(value=>{
+            console.log(222)
+        },reason=>{
+            console.log(444)
+        })
+        console.log(333)
+        //result=> 111->333->222
+        /* //調用race方法
         let p1 = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve('ok');
@@ -22,7 +35,7 @@
         let p3 = Promise.resolve('dsfdsfd')
         let result = Promise.race([p1, p2, p3]);
         console.log(result)
-
+         */
 
         /* //調用all方法
             let p1 = new Promise((resolve, reject) => {

@@ -20,10 +20,13 @@ function Promise(executor) {
         //2.設置對象結果值(promiseResult)
         self.PromiseResult = data;
 
-        //調用成功的回調函數(用foreach是因為會有多個then的時候)
-        self.callbacks.forEach(item => {
-            item.onResolved(data);
-        });
+        setTimeout(() => {
+            //調用成功的回調函數(用foreach是因為會有多個then的時候)
+            self.callbacks.forEach(item => {
+                item.onResolved(data);
+            });
+        })
+
 
     }
     //reject
@@ -37,10 +40,12 @@ function Promise(executor) {
         //2.設置對象結果值(promiseResult)
         self.PromiseResult = data;
 
-        //調用失敗的回調函數
-        self.callbacks.forEach(item => {
-            item.onReject(data);
-        });
+        setTimeout(() => {
+            //調用失敗的回調函數
+            self.callbacks.forEach(item => {
+                item.onReject(data);
+            });
+        })
 
     }
     try {
@@ -93,10 +98,16 @@ Promise.prototype.then = function (onResolved, onReject) {
 
         }
         if (this.PromiseState === 'fulfilled') {
-            callback(onResolved);
+            setTimeout(() => {
+                callback(onResolved);
+            })
+
         }
         if (this.PromiseState === 'reject') {
-            callback(onReject);
+            setTimeout(() => {
+                callback(onReject);
+            })
+
         }
 
         //判斷pending狀態
@@ -154,10 +165,10 @@ Promise.all = function (promises) {
     //返回結果為promise對象
     return new Promise((resolve, reject) => {
         let count = 0;
-        let arr=[];
+        let arr = [];
         for (let i = 0; i < promises.length; i++) {
             promises[i].then(v => {
-                arr[i]=v;
+                arr[i] = v;
                 count++;
                 if (count === promises.length) {
                     resolve(arr)
@@ -170,12 +181,12 @@ Promise.all = function (promises) {
 }
 
 //調用race方法
-Promise.race=function(promises){
-    return new Promise((resolve,reject)=>{
-        for(let i=0;i<promises.length;i++){
-            promises[i].then(v=>{
+Promise.race = function (promises) {
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < promises.length; i++) {
+            promises[i].then(v => {
                 resolve(v);
-            },r=>{
+            }, r => {
                 reject(r);
             })
         }
