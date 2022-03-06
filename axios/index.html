@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="handleClick()">click</button>
+        <ul>
+            <li v-for="data in datalist" :key="data.sid">
+                {{data.text}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                datalist: []
+            },
+            methods: {
+                handleClick() {
+                    //axios 自動包裝data屬性 res.data
+                    axios.get("https://api.apiopen.top/getJoke").then(res => {
+                        this.datalist = res?.data?.result || [];
+                        console.log(res.data.result)
+                        return
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
