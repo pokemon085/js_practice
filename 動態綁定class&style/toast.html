@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+      .wrap {
+        position: absolute;
+        width: 100px;
+        height: 40px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0,0,0,.8);
+        display: flex;
+      }
+
+      .wrap .message {
+        color: white;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .wrap.fade-enter-active,
+      .wrap.fade-leave-active{
+          transition: opacity 0.5s;
+          opacity: 1;
+      }
+
+      .wrap.fade-enter,
+      .wrap.fade-leave{
+          opacity: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="box">
+    <transition name="fade">
+      <div class="wrap" :style="addWrapStyle" v-show="isShow">
+        <div class="message">{{text}}</div>
+      </div>
+    </div>
+    </transition>   
+
+
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: "#box",
+        data: {
+          addWrapStyle: {
+            top: "20%",
+            width: "200px",
+            height: "100px",
+            borderRadius: "10px",
+          },
+          text:'aaaaa',
+          isShow:false
+        },
+        created(){
+            setTimeout(() => {
+                this.isShow=true;
+            }, 1000);
+          
+            // setTimeout(() => {
+            //     this.isShow=false
+            // }, 3000);
+        },
+      });
+    </script>
+  </body>
+</html>
