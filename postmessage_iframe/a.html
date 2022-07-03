@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- source https://www.jianshu.com/p/e558f4115c82 -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>iframe父级页面</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      iframe {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>我是父级页面</h2>
+    <button id="btn">父页面的按钮</button>
+    <div id="default">div内容</div>
+    <iframe
+      src="http://127.0.0.1:5500/postmessage_iframe/b.html"
+      frameborder="1"
+      name="myframe"
+      id="myframe"
+    ></iframe>
+    <script language="javascript" type="text/javascript">
+        /*
+          因父頁面有接子頁面iframe 所以從父頁面的iframe按下子頁面的按鈕 子頁面也就會傳hideselfServce
+          父頁面收到 就會跑下面的這行
+        */
+      window.addEventListener("message", function (e) {
+        console.log(e.data);
+        if (e.data.msg === "hideselfService") {
+          document.getElementById("default").style.display = "none";
+        }
+      });
+      document.getElementById("btn").onclick = function () {
+        //按下父頁面的按鈕 取得iframe的id傳送訊息給b.html,因為iframe就是b.html頁面所以收到後就會印aaa
+        var myframe = document.getElementById("myframe");
+        myframe.contentWindow.postMessage(
+          { data: "parent" },
+          "http://127.0.0.1:5500/postmessage_iframe/"
+        );
+      };
+    </script>
+  </body>
+</html>

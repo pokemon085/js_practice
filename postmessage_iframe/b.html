@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iframe子页面</title>
+</head>
+<body>
+    <h2>我是内嵌的子页面</h2>
+    <button id='btn'>子页面的按钮</button>
+    <script>
+        /*子頁面這邊的畫面主要都是給父頁面控制的 只負責顯示畫面及提供功能*/
+
+        //父頁面那邊透過iframe連到子頁面 當父頁面那邊按下子頁面的按鈕 就會跑來這邊傳送hideselfService
+         document.getElementById('btn').onclick= function(){
+            window.parent.postMessage({
+                msg:"hideselfService"
+            },'*');
+        }
+
+        /*當父頁面那邊按下父頁面的按鈕傳送parent 會跑下面這行
+          因為父頁面的iframe有接上子頁面 所以父頁面也會跑下面這行 出現aaa
+        */
+        window.addEventListener('message', function(e){
+            console.log('aaa');
+            console.log(e);
+            console.log(e.data);
+        })
+    </script>
+</body>
+</html>
