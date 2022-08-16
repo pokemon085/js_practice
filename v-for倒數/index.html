@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      用for顯示倒數計時
+      <div v-for="i in timeList">
+        <child-component :current="i" />
+      </div>
+    </div>
+    <script>
+      // 子元件
+      Vue.component("child-component", {
+        props: {
+          current: {
+            type: String | Number,
+            required: true,
+          },
+        },
+        data: function () {
+          return {
+            timer: null,
+            count: parseInt(this.current),
+          };
+        },
+        computed: {
+          showTime() {
+            let minutes = parseInt(this.count / 60, 10);
+            let seconds = parseInt(this.count % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            return minutes + ":" + seconds;
+          },
+        },
+        methods: {
+          countDown() {
+            this.count <= 0
+              ? clearInterval(this.timer)
+              : (this.count = this.count - 1);
+          },
+        },
+        created() {
+          this.timer = setInterval(() => {
+            this.countDown();
+          }, 1000);
+        },
+        template: `<div>
+                        {{showTime}}
+                    </div>`,
+      });
+
+      // 父元件
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          timeList: [300, 100],
+        },
+      });
+    </script>
+  </body>
+</html>
