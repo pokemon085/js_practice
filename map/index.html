@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.20/vue.global.min.js"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+  </head>
+
+  <body>
+    <div id="app">{{test}}</div>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            list: [
+              { title: "aaa", content: { time: "2022-08-17 21:33:10" } },
+              { title: "bbb", content: { time: "2022-08-16 09:12:10" } },
+            ],
+          };
+        },
+        methods: {},
+        computed: {
+          test() {
+            const map = this.list.map((item) => {
+              var nowDate = moment().format("YYYY-MM-DD");
+              let dataDate = moment(item.content.time).format("YYYY-MM-DD");
+              let dataDate2 = moment(item.content.time).format("HH:mm:ss");
+              let second1 = "";
+
+              if (nowDate === dataDate) {
+                var now = moment().format(); //目前時間
+                const endTime = moment(dataDate2, "HH:mm:ss").add(
+                  15,
+                  "minutes"
+                ); //時間+15m
+
+                let diff = moment(endTime).diff(moment(now), "seconds");
+
+                if (diff <= 900 && diff > 0) {
+                  second1 = diff;
+                }
+                console.log(diff);
+              }
+              return { ...item, is: second1 };
+            });
+
+            return map;
+          },
+        },
+        mounted() {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>
