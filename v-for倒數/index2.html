@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div></div>
+        {{aaa}}
+        <div v-if="aaa>=60">
+          <child-component current="2022-08-18 21:15:10" />
+        </div>
+        <child-component current="2022-08-18 21:15:10" />
+      </div>
+    </div>
+    <script>
+      // 子元件
+      Vue.component("child-component", {
+        props: {
+          current: {
+            type: String,
+            required: true,
+          },
+        },
+        data: function () {
+          return {
+            timer: null,
+            count: -1,
+          };
+        },
+        computed: {
+          showTime() {
+            let minutes = parseInt(this.count / 60, 10);
+            let seconds = parseInt(this.count % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            return minutes + ":" + seconds;
+          },
+        },
+        methods: {
+          countDown() {
+            this.timer = setInterval(() => {
+              this.count <= 0
+                ? clearInterval(this.timer)
+                : (this.count = this.count - 1);
+            }, 1000);
+          },
+          test() {
+            var nowDate = moment().format("YYYY-MM-DD");
+            let dataDate = moment(this.current).format("YYYY-MM-DD");
+
+            if (nowDate === dataDate) {
+              var now = moment().format("HH:mm:ss"); //目前時間
+              const endTime = moment(this.current)
+                .add(15, "minutes")
+                .format("HH:mm:ss"); //時間+15m
+
+              console.log(now);
+              let diff =
+                moment.duration(endTime).asSeconds() -
+                moment.duration(now).asSeconds();
+
+              if (diff <= 900 && diff > 0) {
+                this.count = diff;
+                this.countDown();
+              }
+              console.log(diff);
+            }
+          },
+        },
+        created() {
+          this.test();
+        },
+        template: `<div>
+                        {{showTime}}
+                    </div>`,
+      });
+
+      // 父元件
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          timeList: ["2022-08-18 21:00:10", "2022-08-18 21:00:10"],
+          aaa: 0,
+          aTime: null,
+        },
+        created() {
+          this.aTime = setInterval(() => {
+          
+            this.aaa += 1;
+            if (this.aaa === 70) {
+              clearInterval(this.aTime);
+             
+            }
+          }, 1000);
+        },
+      });
+    </script>
+  </body>
+</html>
