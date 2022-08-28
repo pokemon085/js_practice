@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>變量</h2>
+    <script>
+        //聲明變量
+        let a;
+        let b,c,d;
+        let e=100;
+        let f=521,g='aaa',h=[];
+
+        //1. 變量let不能重複聲明(var可以)
+        let star='star';
+        //let star='star'; x
+
+        //2. 塊級作用域 全局 函數 eval
+        //塊級作用域{}(if else while for)
+        {
+            let girl='girl'
+        }
+        //console.log(girl) 讀不到裡面girl,因為let為塊級作用域,如果改var(算是全局作用域)就可以讀到
+
+        //3. 不存在變量提升
+        //console.log(song); //let->報錯(Uncatch ReferenceError), var->undefined
+        let song='song';
+
+        //4. 不影響作用域
+        {
+            let school='school';
+            function fn(){
+                console.log(school);
+            }
+            fn();
+        }
+
+        
+
+    </script>
+</body>
+</html>

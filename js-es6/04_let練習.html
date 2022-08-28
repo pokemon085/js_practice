@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            padding: 10px;
+
+        }
+
+        .container h2 {
+            margin-bottom: 10px;
+        }
+
+        .container .item {
+            border: 1px solid blue;
+            width: 60px;
+            height: 30px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>點擊切換顏色</h2>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <script>
+        let items = document.getElementsByClassName('item');
+
+        //for迴圈let i=0如果改成var的話 修改顏色只能用this去抓 因為var屬於全局作用域 如果用items[i]去抓 i會為3 跑到外層 
+        for (let i = 0; i < items.length; i++) {
+            items[i].onclick = function () {
+                //this.style.background = 'pink'; //(let 這個也可以)
+                items[i].style.background = 'pink';
+            }
+        }
+
+
+        //運作的時候
+        // {
+        //     let i = 0;
+        //     items[i].onclick = function () {
+        //         items[i].style.background = 'pink';
+        //     }
+        // }
+        // {
+        //     let i = 1;
+        // }
+        // {
+        //     let i = 2;
+        // }
+        console.log(window.i)
+
+    </script>
+</body>
+
+</html>
