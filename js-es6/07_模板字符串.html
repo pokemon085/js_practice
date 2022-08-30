@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板字符串</title>
+</head>
+<body>
+    <script>
+        //1. 聲明
+        let str='aaaaa';
+        console.log(str, typeof str); //aaaaa string
+
+        //2. 內容中可以直接出現換行符
+        let str2=`<ul>
+            <li>aa</li>
+            <li>bb</li>
+            <li>cc</li>
+            </ul>`
+
+        //3. 変量拼接
+        let str3='aaa';
+        let str4=`${str3} cccc`;
+        console.log(str4); //aaa cccc
+       
+    </script>
+</body>
+</html>

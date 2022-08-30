@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>変量的解構賦値</title>
+</head>
+
+<body>
+    <script>
+        //es6 允許按照一定模式從數組和對象中提取値 對変量進行賦値
+        //1. 數組的結構
+        const F4 = ['aa', 'bb', 'cc', 'dd'];
+        let [a, b, c, d] = F4;
+        console.log(a); //aa
+        console.log(b); //bb
+        console.log(c); //cc
+        console.log(d); //dd
+
+        //2. 對象的解構
+        const z = {
+            name: 'zzz',
+            age: 'hide',
+            fn: function () {
+                console.log('dddd')
+            }
+        }
+        let { name, age, fn } = z;
+        console.log(name);
+        console.log(age);
+        console.log(fn);
+        /*ƒ (){
+                console.log('dddd')
+          }
+        */
+        fn(); //dddd
+
+        //可以單獨把function取出來
+        // let { fn } = z; 
+        // fn();
+
+
+    </script>
+</body>
+
+</html>

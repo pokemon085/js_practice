@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>const 定義常量</title>
+</head>
+<body>
+    <script>
+        //聲明常量
+        const SCHOOL='school';
+
+        // 1. 一定要賦初始值
+        // const A; x 
+        // 2. 一般常量使用大寫(淺規則)
+        // 3. 常量的值不能修改 
+        // 4. 塊級作用域
+        {
+            const PLAYER = 'player'
+        }
+        //http://127.0.0.1:5500/js-es6/05_const.html x 讀不到
+        // 5. 對於數組和對象的元素修改,不算對常量的修改,不會報錯
+        const TEAM = ['aaa','bbb','ccc','ddd'];
+        TEAM.push('eee')
+        console.log(TEAM)
+    </script>
+</body>
+</html>

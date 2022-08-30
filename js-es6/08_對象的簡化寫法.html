@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>對象的簡化寫法</title>
+</head>
+<body>
+    <script>
+        //es6 允許在大括號裡面,直接寫入変量和函數,作為對象的屬性和方法
+        let name='aaa';
+        let change=function(){
+            console.log('cccc')
+        }
+
+        const school={
+            name,
+            change,
+            test(){
+                console.log('ddd')
+            }
+        }
+        /*上面等於這樣
+        const school={
+            name:name,
+            change:change
+        }
+        */
+        
+    </script>
+</body>
+</html>
