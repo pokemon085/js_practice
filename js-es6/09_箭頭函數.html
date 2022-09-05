@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>箭頭函數</title>
+</head>
+
+<body>
+    <script>
+        //聲明函數
+        // let fn=function(){
+
+        // }
+        let fn = (a, b) => {
+            return a + b;
+        }
+
+        //調用函數
+        let result = fn(1, 2);
+        console.log(result);
+
+        //1. this是靜態的 始終指向函數聲明時所在的作用域下的this值
+        function getName() {
+            console.log(this.name);
+        }
+        let getName2 = () => {
+            console.log(this.name);
+        }
+
+        //設置window對象的name屬性
+        window.name = 'aaaa';
+        const school = {
+            name: 'bbbb'
+        }
+
+        //直接調用
+        getName();
+        getName2();
+
+        //call方法調用
+        getName.call(school);
+        getName2.call(school);
+
+
+        //2. 不能作為構造實例化對象
+        // let Person =(name,age)=>{
+        //     this.name=name;
+        //     this.age=age;
+        // }
+        // let me=new Person('xiao',30)
+        // console.log(me);
+        //Person is not a constructor
+
+        //3. 不能使用 arguments 變量
+        // let fn=()=>{
+        //     console.log(arguments)
+        // }
+        // fn(1,2,3)
+
+
+        //4. 箭頭函數的簡寫
+            //4-1 省略小括號,當形參有且只有一個的時候
+            let add = n => {
+                return n + n;
+            }
+            console.log(add(9));
+            //4-2 省略大括號,當代碼只有一條語句的時候 return也必須省略 
+            //語句的執行結果就是函數的返回值
+            let pow= n => n * n;
+            console.log(pow(9))
+
+    </script>
+</body>
+
+</html>
