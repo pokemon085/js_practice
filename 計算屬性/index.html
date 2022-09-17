@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+       <p>計算屬性:{{getMyName}}</p>
+       
+       
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+              myname:"xiaoming"
+            },
+            computed: {
+                // 第一個字母轉大寫
+                getMyName(){
+                    return this.myname.substring(0,1).toUpperCase()+this.myname.substring(1)
+                    //myname改變 計算屬性 會重新計算一遍 ,沒改變資料會緩存
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
