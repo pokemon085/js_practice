@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>擴展運算符</title>
+</head>
+<body>
+    <script>
+        //[...]擴展運算符能將數組轉換為逗號分隔的參數序列
+        const arr=['aaa','bbb','ccc'];
+
+        function expand(...args){
+            console.log(args)
+            
+        }
+        expand(arr);  //result=> array1 0:['aaa','bbb','ccc']
+        expand(...arr) //result=> array3 0:'aaa' 1:'bbb' 2:'ccc'
+    </script>
+</body>
+</html>
