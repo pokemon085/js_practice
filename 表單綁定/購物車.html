@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <ul>
+            <li v-for="item in datalist">
+                <input type="checkbox" v-model="checkgroup" :value="item"/>
+                {{item}}
+                <input type="number"/>
+            </li>
+           choose: {{checkgroup}}
+        </ul>
+        <p>總金額:{{sum()}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+
+                checkgroup: [],
+                datalist: [{ name: '商品1', price: 10, number: 1, id: "1" },
+                { name: '商品2', price: 20, number: 2, id: "2" },
+                { name: '商品3', price: 30, number: 3, id: "3" }]
+            },
+            methods: {
+                sum() {
+                    return this.checkgroup.reduce((acc, item) => {
+                        return acc + (item.price*item.number)
+                    }, 0)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

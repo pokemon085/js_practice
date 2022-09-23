@@ -19,12 +19,17 @@
         <p>sport?
             <template v-for="i in sport">
                 <input type="checkbox"  v-model="group" :value="i.name"/>{{i.name}}
-            </template>
-            
-           
+            </template> 
         </p> 
         <div>checkbox sport :  {{group}}</div> 
-        not check sport:  {{notInGroup}}
+        <div> not check sport:  {{notInGroup}}</div>
+
+        <p>favorite language?
+            <input type="radio" v-model="picked" value="c" />c
+            <input type="radio" v-model="picked" value="java" />java
+            <input type="radio" v-model="picked" value="php" />php
+        </p>
+        {{picked}}
     </div>
     <script>
         var vm = new Vue({
@@ -33,7 +38,8 @@
                 mytext:"",
                 isChecked:false,
                 sport:[{key:0,name:'swim'},{key:1,name:'run'},{key:2,name:'skate'}],
-                group:[]
+                group:[],
+                picked:""
             },
             computed: {   
                 notInGroup(){
