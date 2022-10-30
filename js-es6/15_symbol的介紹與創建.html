@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>symbol</title>
+</head>
+
+<body>
+    <script>
+        //Symbol 的区别在于唯一，可避免名字冲突
+        //創建symbol
+        let s = Symbol();
+
+        let s2 = Symbol('aa');
+        let s3 = Symbol('aa');
+        //Symbol.for創建
+        let s4 = Symbol.for('aa');
+        let s5 = Symbol.for('aa');
+
+        //不能與其他數據進行運算
+        // let result=s+100;
+        // let result=s>100;
+        // let result=s+s;
+
+        // 在 JavaScript 中，原始型別有以下幾種：
+        // Boolean：僅有 true, false 兩個值
+        // Null：僅有 null 的值
+        // Undefined：沒有被定義的變數
+        // String：字串
+        // Number：數值
+        // Symbo
+
+        //https://ithelp.ithome.com.tw/articles/10220499 
+        const classMate = {
+            [Symbol('宜蓁')]: { score: 70, sleep: '3:00', drink: true },
+            [Symbol('chita')]: { score: 90, sleep: '20:00', drink: false },
+            [Symbol('宜蓁')]: { score: 100, sleep: '19:00', drink: false },
+        }
+
+        const myFriends = Object.getOwnPropertySymbols(classMate).map(item => classMate[item]);
+        console.log(myFriends);
+    </script>
+</body>
+
+</html>
