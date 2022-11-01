@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>symbol創建對象屬性</title>
+</head>
+
+<body>
+    <script>
+        //向對象中添加方法 up down
+        let game = { up: "up", down: "down" }
+
+        //聲明一個對象
+        let methods = { up: Symbol(), down: Symbol() };
+
+        game[methods.up] = function () {
+            console.log('aaa')
+        }
+        game[methods.down] = function () {
+            console.log('bbb')
+        }
+
+        console.log(game)
+
+
+        //封裝
+        let youxi = {
+            name: "game",
+            [Symbol('say')]: function () {
+                console.log('say say');
+            },
+            [Symbol('zibao')]: function () {
+                console.log('zibao zibao')
+            }
+        }
+        console.log(youxi)
+
+        let keys = Reflect.ownKeys(youxi)
+        youxi[keys[1]]()  // say say
+    </script>
+</body>
+
+</html>
