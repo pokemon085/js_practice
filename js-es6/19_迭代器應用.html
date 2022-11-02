@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代器應用 自訂義遍歷數據</title>
+</head>
+
+<body>
+    <script>
+        //迭代器 陣列裡面有個方法Symbol.iterator
+        //工作原理
+        /*
+            a.創建一個只針對象
+            b.第一次調用對象的next方法,指針自動指向數據結構的第一個成員
+            c.接下來不斷調用next方法,指針一直往後移動,直到指向最後一個成員
+            d.每調用next方法返回一個包含value和done屬性的對象
+        */
+
+        const banji = {
+            name: 'className',
+            stus: ['aaa', 'bbb', 'ccc', 'ddd'],
+            [Symbol.iterator]() {
+                let index = 0;
+                return {
+                    next: () => {
+                        if (index < this.stus.length) {
+                            const result = { value: this.stus[index], done: false }
+                            index++;
+                            return result;
+                        } else {
+                            return { value: undefined, done: true }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        for(let v of banji){
+            console.log(v)
+        }
+    </script>
+</body>
+
+</html>
