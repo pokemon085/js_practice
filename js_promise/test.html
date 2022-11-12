@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = ["aaa", "bbb", "ccc"];
+
+        let ttt = [600, 200, 300];//time
+
+        let taskList = [];
+        let orderUrlList = [];
+
+        let openGameUrl = ""
+
+
+
+        const gameComponyInfo = (drinksName, time, index) => {
+            let startTime = performance.now();
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let endTime = performance.now();
+                    if (drinksName === 'bbb') {
+                        resolve({ url: "error", token: "error", time: "error" });
+                    } else {
+                        resolve({ url: drinksName, token: drinksName === 'bbb' ? 'bbb' : endTime - startTime, time: endTime - startTime });
+                    }
+
+                }, time);
+            });
+        }
+
+        const authToken = (params) => {
+            const { url, token, time } = params
+
+            if (token === 'bbb') {
+                return "error"
+            } else {
+                openGameUrl = url;
+                return "ok"
+            }
+        }
+
+        const checkUrl = () => {
+            let end = false
+            while (!end) {
+                if (orderUrlList.length > 0) {
+                    const availate = authToken(orderUrlList[0]);
+                    console.log('availate' + availate)
+                    if (availate !== 'ok') {
+                        console.log('ccc')
+                        orderUrlList.splice(0, 1);
+                        console.log('orderUrlList===' + JSON.stringify(orderUrlList))
+                    } else {
+                        end = true
+                    }
+                } else {
+                    end = true
+                }
+            }
+        }
+
+        const main = async () => {
+            arr.forEach((value, index) => {
+                taskList.push(gameComponyInfo(value, ttt[index], index))
+            });
+
+            await Promise.all(taskList)
+                .then((value) => {
+                    const componyDomain = value.filter(i => i.url !== "error")
+                    console.log(componyDomain)
+                    const orderUrl = componyDomain.sort(function (a, b) {
+                        return (a.time - b.time);
+                    })
+                   
+                     orderUrlList = orderUrl;
+                     console.log('orderUrlList====' + JSON.stringify(orderUrlList));
+
+                    // const orderUrl = value.sort(function (a, b) { 
+                    //     return (Object.values(a)-Object.values(b));
+                    // }).reduce((acc,item)=>{
+                    //     return  acc.concat(Object.keys(item));
+                    // },[])
+                    // orderUrlList=orderUrl
+                    // console.log(orderUrlList)  
+                });
+
+            await checkUrl();
+
+            return openGameUrl
+        }
+
+
+
+
+
+        main().then((a) => {
+            console.log('url='+a)
+        })
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
