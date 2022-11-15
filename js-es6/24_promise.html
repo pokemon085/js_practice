@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise基本語法</title>
+</head>
+
+<body>
+    <script>
+        const p = new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                
+                //resolve
+                //let data = 'success';
+                //resolve(data);
+
+                let data = 'failed';
+                reject(data)
+            }, 1000);
+        })
+
+        p.then(value => {
+            console.log(value);
+        }, reason => {
+            console.log('error='+reason);
+        })
+    </script>
+</body>
+
+</html>
