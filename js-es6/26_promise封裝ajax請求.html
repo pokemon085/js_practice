@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //測試api https://api.apiopen.top/sentences
+        const p = new Promise((resolve, reject) => {
+
+            //1.創建對象
+            const xhr = new XMLHttpRequest();
+
+            //2.初始化
+            xhr.open("GET", "https://api.apiopen.top/api/sentences");
+
+            //3.發送
+            xhr.send();
+
+            //4.綁定事件,處理響應結果
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        //success
+                        //console.log(xhr.response);
+                        resolve(xhr.response);
+                    } else {
+                        //fail
+                        //console.log(xhr.status);
+                        reject(xhr.status)
+                    }
+                }
+            }
+        })
+
+        p.then(value => {
+            console.log(value);
+        }, reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+
+</html>
