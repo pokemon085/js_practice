@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>set 實踐</title>
+</head>
+<body>
+    <script>
+        let arr=[1,2,3,4,5,4,3,2,1];
+        //1.set轉array用擴展運算符...
+        let result=[...new Set(arr)];
+        console.log(result); //[1,2,3,4,5]
+
+
+        //2.交集
+        let arr2=[3,5,5,6];
+        
+        // const result2=[...new Set(arr)].filter((i)=>{
+        //     if(new Set(arr2).has(i)){
+        //         return true
+        //     }else{
+        //         return false
+        //     }
+        // });
+
+        //簡化
+        const result2=[...new Set(arr)].filter(i=>new Set(arr2).has(i));
+        console.log(result2); //[3,5]
+
+        //3.聯集
+        const result3=[...new Set([...arr,...arr2])];
+        console.log(result3); //[1,2,3,4,5,6]
+
+        //4.差集
+        const result4=[...new Set(arr)].filter(i=>!new Set(arr2).has(i));
+        console.log(result4); //[1,2,4]
+    </script>
+</body>
+</html>
