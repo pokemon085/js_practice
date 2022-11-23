@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>map</title>
+</head>
+
+<body>
+    <script>
+        let m = new Map();
+
+        //添加元素
+        m.set('name', 'aaa');//key:'name',value:'aaa'
+        m.set('change', () => { console.log('ccc') });
+        let key = { school: 'bbb' };
+        m.set(key, ['a', 'b', 'c']);
+        console.log(m);
+
+        //size 
+        console.log(m.size);//4
+
+        // [
+        //     {
+        //         "key": "name",
+        //         "value": "aaa"
+        //     },
+        //     {
+        //         "key": "change"
+        //     },
+        //     {
+        //         "key": {
+        //             "school": "bbb"
+        //         },
+        //         "value": [
+        //             "a",
+        //             "b",
+        //             "c"
+        //         ]
+        //     }
+        // ]
+
+        //刪除
+        m.delete('name');
+        console.log(m);
+
+        // [
+        //     {
+        //         "key": "change"
+        //     },
+        //     {
+        //         "key": {
+        //             "school": "bbb"
+        //         },
+        //         "value": [
+        //             "a",
+        //             "b",
+        //             "c"
+        //         ]
+        //     }
+        // ]
+
+        //獲取
+        console.log(m.get('change'));
+        //() => { console.log('ccc') }
+
+        console.log(m.get(key));
+        //['a', 'b', 'c']
+
+        //清空
+        // m.clear();
+        // console.log(m);
+
+
+        //for
+        for (let v of m) {
+            console.log(v); //[key,value]
+        }
+
+        // ['change', ƒ]
+        // [
+        //     {
+        //         "school": "bbb"
+        //     },
+        //     [
+        //         "a",
+        //         "b",
+        //         "c"
+        //     ]
+        // ]
+    </script>
+</body>
+
+</html>
