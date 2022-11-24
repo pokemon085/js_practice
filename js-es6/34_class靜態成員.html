@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class靜態成員</title>
+</head>
+<body>
+    <script>
+        class Phone{
+            //靜態屬性
+            static name='手機';
+            static change(){
+                console.log('phone');
+            }
+        }
+
+        let aa=new Phone();
+        console.log(aa.name);//undefined
+        console.log(Phone.name);//手機
+    </script>
+</body>
+</html>
