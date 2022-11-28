@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="打开窗口" onclick="openWin()" />
+    <input type="button" value="關閉窗口" onclick="closed()" />
+    <script>
+        function openWin() {
+            myWindow = window.open('https://www.runoob.com/try/try.php?filename=try_win_focus', '_blank', 'width=300,height=300');
+
+            setTimeout(() => {
+               
+                myWindow.focus();
+                myWindow.location.href = 'http://www.google.com';
+            }, 5000)
+        }
+
+        function closed() {
+
+            myWindow.close();
+        }
+
+    </script>
+</body>
+
+</html>
