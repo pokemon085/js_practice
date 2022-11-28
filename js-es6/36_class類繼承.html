@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>class類繼承</title>
 </head>
+
 <body>
     <script>
-        class Phone{
+        class Phone {
             //構造方法
-            constructor(brand,price){
-                this.brand=brand;
-                this.price=price;
+            constructor(brand, price) {
+                this.brand = brand;
+                this.price = price;
             }
 
             //父類的成員屬性
-            call(){
+            call() {
                 console.log('call phone');
             }
         }
 
-        class SmartPhone extends Phone{
+        class SmartPhone extends Phone {
             //構造方法
-            constructor(brand,price,color,size){
-                super(brand,price);
-                this.color=color;
-                this.size=size;
+            constructor(brand, price, color, size) {
+                super(brand, price);
+                this.color = color;
+                this.size = size;
             }
 
-            photo(){
+            photo() {
                 console.log('take a picture');
             }
 
-            playGame(){
+            playGame() {
                 console.log('play game');
+            }
+
+            //子类对父类方法的重写 父會被子蓋掉
+            call() {
+                console.log('test');
             }
         }
 
-        const bb=new SmartPhone('bb',811,'red','4.7inch')
+        const bb = new SmartPhone('bb', 811, 'red', '4.7inch')
         console.log(bb);
-        bb.call();
+        // {
+        //     "brand": "bb",
+        //     "price": 811,
+        //     "color": "red",
+        //     "size": "4.7inch"
+        // }
+        bb.call();//test
         bb.photo();
         //{"brand": "bb","price": 811,"color": "red","size": "4.7inch"}
     </script>
 </body>
+
 </html>
