@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getter setter</title>
+</head>
+
+<body>
+    <script>
+        // https://www.youtube.com/watch?v=TjPbmaZvgqA
+
+
+        class Phone {
+
+            constructor(fName, lName, id) {
+                this.fName = fName;
+                this.lName = lName;
+                this.id = id
+            }
+
+            sayHello(arg) {
+                console.log(`${arg} my name is ${this.fName}`);
+            }
+
+            //getFirstName不能與 constructor裡面的this.fName名字相同
+            get getFirstName() {
+                return this.fName;
+            }
+
+            set getFirstName(fName) {
+                this.fName = fName;
+            }
+
+            get nameId() {
+                return this.id;
+            }
+
+            set nameId(id) {
+                this.id = id * id;
+            }
+
+        }
+
+        let s = new Phone("aaa", "bbb", 99);
+        console.log(s);
+        s.sayHello("hi,");
+
+        console.log(s.getFirstName);
+
+        s.getFirstName = 'ppp';
+        console.log(s.fName);
+
+        s.nameId = 9;
+        console.log(s.nameId); //81
+
+
+        console.log("--------------------------");
+        //-------------------------------------------
+
+        const Prog = class {
+            constructor(fName, lName) {
+                this.fName = fName;
+                this.lName = lName
+            }
+
+            static hate="bugs";
+
+            static firstStep(){
+                console.log('create hello')
+            }
+
+            sayHello(arg) {
+                console.log('arg=' + arg)
+            }
+        }
+
+        console.log(typeof Prog);//fuction
+
+        function createInstance(cls, prop1, prop2) {
+            return new cls(prop1, prop2);
+        }
+
+        const p1 = createInstance(Prog, 'john', 'doe');
+        console.log(p1);
+
+        // {
+        //     "fName": "john",
+        //     "lName": "doe"
+        // }
+        console.log("--------- super -----------------");
+        //-------------------------------------------
+
+        class FrontEnder extends Prog {
+            constructor(fName, lName, fvFramework) {
+                super(fName, lName);
+                this.fvFramework = fvFramework;
+            }
+        }
+
+        class BackEnder extends Prog {
+            constructor(fName, lName, fbDb) {
+                super(fName, lName);
+                this.favoriteDatabase = fbDb;
+            }
+        }
+
+        const a1 = new FrontEnder('john', 'doe', 'react');
+        console.log(a1);
+        // {
+        //     "fName": "john",
+        //     "lName": "doe",
+        //     "fvFramework": "react"
+        // }
+        const a2 = new BackEnder('michael', 'scofield', 'mariaDB');
+        console.log(a2);
+        // {
+        //     "fName": "michael",
+        //     "lName": "scofield",
+        //     "favoriteDatabase": "mariaDB"
+        // }
+
+       //static只能直接讀取 不能用new會undefined
+        console.log(FrontEnder.hate);//bugs
+        console.log(a2.hate);//undefined
+    </script>
+</body>
+
+</html>
