@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>對象方法擴展</title>
+</head>
+<body>
+    <script>
+         //1. Object.is 判斷兩個值是否完全相等
+         console.log(Object.is(120,120));//true
+         console.log(Object.is(NaN,NaN));//true
+         console.log(NaN===NaN);//false
+
+         //2. Object.assign 對象的合併(後把前覆蓋掉,沒重覆繼續顯示)
+         const config1={
+            host:'localhost',
+            port:3306,
+            name:'root',
+            pass:'root',
+            test:'test'
+         }
+
+         const config2={
+            host:'http://aaa.com',
+            port:3355,
+            name:'aa',
+            pass:'1111'
+         }
+         console.log(Object.assign(config1,config2));
+
+        //  {
+        //     "host": "http://aaa.com",
+        //     "port": 3355,
+        //     "name": "aa",
+        //     "pass": "1111",
+        //     "test": "test"
+        // }
+
+        //3. Object.setPrototypeOf 設置原型對象, Object.getPrototypeof
+    </script>
+</body>
+</html>
