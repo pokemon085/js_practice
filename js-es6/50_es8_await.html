@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>await</title>
+</head>
+
+<body>
+    <script>
+        /*await
+        1. await必須寫在async函數裡
+        2. await右側的表達式一般為promise對象
+        3. await返回的是promise成功的值
+        4. await的promise失敗,就會拋出異常,需要try...catch處理
+        */
+
+        const p = new Promise((resolve, reject) => {
+            // resolve('success value');
+            reject('failed');
+        })
+
+        const main = async () => {
+            try {
+                let result = await p;
+                console.log(p);
+            } catch (e) {
+                console.log(e);
+            }
+
+        }
+
+        main();
+    </script>
+</body>
+
+</html>

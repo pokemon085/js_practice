@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es8 async</title>
+</head>
+
+<body>
+    <script>
+        //async 函數 回傳的結果為Promise
+        const fn = async () => {
+            //返回字串
+            // return 'aaa';
+
+            //返回結果不是一個Promise類型的對象 成功Promise
+            //return;
+
+            //拋出錯誤 返回reject
+           // throw new Error('錯了');
+
+
+            //返回結果如果是一個promise
+            return new Promise((resolve,reject)=>{
+                 resolve('成功');
+               // reject('失敗');
+            })
+        }
+
+        const result = fn();
+
+        console.log(result); //返回結果為promise對象
+
+        //調用then方法
+        result.then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        });
+    </script>
+</body>
+
+</html>
