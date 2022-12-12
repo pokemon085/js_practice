@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es8對象方法擴展</title>
+</head>
+
+<body>
+    <script>
+        const school = {
+            name: 'aaa',
+            city: ['bbb', 'ccc', 'ddd'],
+            item: ['eee', 'fff', 'ggg']
+        }
+
+        //獲取對象所有key
+        console.log(Object.keys(school));
+        // [
+        //     "name",
+        //     "key",
+        //     "item"
+        // ]
+
+        //獲取對象所有值
+        console.log(Object.values(school));
+        // [
+        //     "aaa",
+        //     [
+        //         "bbb",
+        //         "ccc",
+        //         "ddd"
+        //     ],
+        //     [
+        //         "eee",
+        //         "fff",
+        //         "ggg"
+        //     ]
+        // ]
+
+        //entries  返回第一個元素為鍵 第二個為值
+        console.log(Object.entries(school));
+        // [
+        //     [
+        //         "name",
+        //         "aaa"
+        //     ],
+        //     [
+        //         "city",
+        //         [
+        //             "bbb",
+        //             "ccc",
+        //             "ddd"
+        //         ]
+        //     ],
+        //     [
+        //         "item",
+        //         [
+        //             "eee",
+        //             "fff",
+        //             "ggg"
+        //         ]
+        //     ]
+        // ]
+
+        //創建Map
+        const m = new Map(Object.entries(school));
+        console.log(m);
+        // [
+        //     {
+        //         "key": "name",
+        //         "value": "aaa"
+        //     },
+        //     {
+        //         "key": "city",
+        //         "value": [
+        //             "bbb",
+        //             "ccc",
+        //             "ddd"
+        //         ]
+        //     },
+        //     {
+        //         "key": "item",
+        //         "value": [
+        //             "eee",
+        //             "fff",
+        //             "ggg"
+        //         ]
+        //     }
+        // ]
+        console.log(m.get('name'));//aaa
+    </script>
+</body>
+
+</html>

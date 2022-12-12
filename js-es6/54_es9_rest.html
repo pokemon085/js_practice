@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>對象展開</title>
+</head>
+
+<body>
+    <!--
+        rest參數在es9為對象提供了像數組一樣的rest參數和擴展運算符 -->
+    <script>
+        const connect = ({ host, port, ...user }) => {
+            console.log(host);
+            console.log(port);
+            console.log(user);
+            // {
+            //     "username": "root",
+            //      "password": "root",
+            //      "type": "master"
+            // }
+        }
+
+        connect({ host: '127.0.0.1', port: 3306, username: 'root', password: 'root', type: 'master' })
+
+
+        //對象合併
+        const one = { q: 'aaa' };
+        const two = { w: 'bbb' };
+        const three = { e: 'ccc' };
+        const four = { r: 'ddd' };
+        const all = { ...one, ...two, ...three, ...four };
+        console.log(all);
+        // {
+        //     "q": "aaa",
+        //     "w": "bbb",
+        //     "e": "ccc",
+        //     "r": "ddd"
+        // }
+    </script>
+</body>
+
+</html>
