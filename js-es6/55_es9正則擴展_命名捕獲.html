@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正則擴展-命名捕獲分組</title>
+</head>
+
+<body>
+    <script>
+        let str = '<a href="http://www.atguigu.com">測試</a>';
+
+        //提取url與標籤文本
+        const reg = /<a href="(.*)">(.*)<\/a>/;
+        const result = reg.exec(str);
+        console.log(result);
+        // [
+        //     "<a href=\"http://www.atguigu.com\">測試</a>",
+        //     "http://www.atguigu.com",
+        //     "測試"
+        // ]
+        // groups: undefined
+
+        
+        console.log(result[1]); //http://www.atguigu.com
+        console.log(result[2]); //測試
+
+
+
+        let str1 = '<a href="http://www.atguigu.com">測試</a>';
+        //提取url與標籤文本 多group
+        const reg1 = /<a href="(?<url>.*)">(?<text>.*)<\/a>/;
+        const result1 = reg1.exec(str1);
+        console.log(result1);
+
+        // [
+        //     "<a href=\"http://www.atguigu.com\">測試</a>",
+        //     "http://www.atguigu.com",
+        //     "測試"
+        // ]
+        // group: {
+        //     "url": "http://www.atguigu.com",
+        //     "text": "測試"
+        // }
+        console.log(result1[1]);
+        console.log(result1[2]);
+        console.log(result.groups.url);
+        console.log(result.groups.text);
+
+    </script>
+</body>
+
+</html>
