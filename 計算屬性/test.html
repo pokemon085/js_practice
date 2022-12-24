@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 父丟資料列表給子搜尋 搜尋結果再傳給父顯示 -->
+    <div id="app">
+        <div> result:{{result}}</div>
+        <child-component :list="dataList" :result.sync="result" />
+    </div>
+    <script>
+        // 子元件
+        Vue.component('child-component', {
+            data: function () {
+                return {
+                    keyword: ''
+                };
+            },
+            props: {
+                list: { type: Array, required: true }
+            },
+            methods: {
+                handle() {
+                    const filterData = this.list.filter(item => item.indexOf(this.keyword.toLowerCase()) > -1)
+                    this.$emit('update:result', filterData)
+                }
+            },
+            template: `<div>
+                <input type="text" v-model="keyword" @input="handle()"/>
+                </div>`
+        });
+
+        // 父元件
+        const vm = new Vue({
+            el: '#app',
+            data: { dataList: ['aaa', 'bbb', 'ccc', 'ddd', 'aee'], result: [] },
+            methods: {
+
+            },
+            mounted() {
+                this.result = this.dataList
+            },
+        });
+    </script>
+</body>
+
+</html>
