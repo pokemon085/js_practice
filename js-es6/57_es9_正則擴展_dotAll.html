@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //dot . 元字符 除換行符以外的任意單個字符
+        let str = `
+        <ul>
+            <li>
+                <a>aaaaaa</a>
+                <p>bbbbbbbb</p>    
+            </li>    
+            <li>
+                <a>ccccccc</a>
+                <p>dddddddd</p>    
+            </li>  
+        </ul>
+        `
+         const reg1=/<li>\s+<a>(.*?)<\/a>\s+<p>(.*?)<\/p>/; // \s換行
+
+        const reg2 = /<li>.*?<a>(.*?)<\/a>.*?<p>(.*?)<\/p>/s;  //主要加上s .才可以匹配任意字符 怕會有很多換行要一直\s
+
+        const reg3 = /<li>.*?<a>(.*?)<\/a>.*?<p>(.*?)<\/p>/gs; //加g全局匹配
+
+        const result2 = reg2.exec(str);
+        // console.log(result2);
+
+        let result4;
+        let data = [];
+        while (result4 = reg3.exec(str)) {
+            console.log(result4);
+            data.push({ a: result4[1], p: result4[2] })
+            // [
+            //     "<li>\n                <a>aaaaaa</a>\n                <p>bbbbbbbb</p>",
+            //     "aaaaaa",
+            //     "bbbbbbbb"
+            // ]
+
+            // [
+            //     "<li>\n                <a>ccccccc</a>\n                <p>dddddddd</p>",
+            //     "ccccccc",
+            //     "dddddddd"
+            // ]
+        }
+        console.log(data);
+
+        // [
+        //     {
+        //         "a": "aaaaaa",
+        //         "p": "bbbbbbbb"
+        //     },
+        //     {
+        //         "a": "ccccccc",
+        //         "p": "dddddddd"
+        //     }
+        // ]
+
+        // const result3=reg3.exec(str);
+        //  console.log(result3);
+
+
+    </script>
+</body>
+
+</html>
