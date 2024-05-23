@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+    <style lang="scss" scoped>
+        .input-wrap {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .button-wrap {
+            margin-left: 10px;
+
+        }
+
+        .button-wrap>button {
+            margin: 0 5px;
+        }
+
+        .select-wrap {
+            margin-bottom: 10px;
+        }
+
+        .result {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="input-wrap">
+            <input type="number" v-model="model" style="font-size:30px;" />
+            <div class="button-wrap">
+                <button @click="add">add</button>
+                <button @click="remove">remove</button>
+            </div>
+        </div>
+
+        <div class="select-wrap">
+            <select v-model="model" name="state" id="state" style="font-size:30px;">
+                <option v-for="i in list" :value="i">{{i}}</option>
+            </select>
+        </div>
+
+        <div class="result" @click="copyHandler">{{ result }}rem</div>
+
+    </div>
+
+
+    <script>
+        const { createApp, ref, computed, onMounted } = Vue
+        createApp({
+            setup() {
+
+                const model = ref()
+                const list = ref([10, 12, 16, 17, 20, 30])
+                const result = computed(() => {
+                    const value = (model.value / 14).toFixed(2)
+                    return value === 'NaN' ? '' : value
+                });
+
+                const add = () => {
+                    if (typeof model.value === 'undefined') {
+                        return;
+                    }
+
+                    const isInner = list.value.findIndex(item => model.value === item)
+                    if (isInner === -1 && model.value !== 0) {
+                        list.value.push(+model.value)
+                        localStorage.setItem('arrayList', JSON.stringify(list.value))
+                    }
+
+                }
+
+                const remove = () => {
+                    if (typeof model.value === 'undefined') {
+                        return;
+                    }
+
+                    const index = list.value.findIndex(item => item === model.value);
+                    if (index !== -1) {
+                        list.value.splice(index, 1);
+                        localStorage.setItem('arrayList', JSON.stringify(list.value))
+                    }
+                }
+
+                const copyHandler = () => {
+                    try {
+                        navigator.clipboard.writeText(`${result.value}rem`);
+                    } catch (error) {
+                        console.error(error.message);
+                    }
+                }
+
+                onMounted(() => {
+                    const cacheList = localStorage.getItem('arrayList')
+                    if (cacheList) {
+                        list.value = JSON.parse(cacheList)
+                    }
+                });
+
+
+                return {
+                    model,
+                    result,
+                    list,
+                    add,
+                    remove,
+                    copyHandler,
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
